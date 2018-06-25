@@ -15,6 +15,12 @@ body {
   margin: 0 auto;
 }
 
+.header h1 i {
+  font-size: 31px;
+  line-height: 1.15;
+  vertical-align: bottom;
+}
+
 .phone,
 .verification-code {
   display: block;

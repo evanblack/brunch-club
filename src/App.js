@@ -6,6 +6,11 @@ import firebase from 'firebase';
 // import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 // import logo from './logo.svg';
 import './App.css';
+import {
+  Consumer,
+  createSelector,
+  mutate,
+} from './state';
 
 /**
  * Returns true if the phone number is valid.
@@ -28,10 +33,6 @@ function resetReCaptcha() {
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      phoneNumber: '',
-      view: 'login' // login | verify
-    }
     this.phoneField = null
     this.phoneFieldIcon = null
     this.signInBtn = null
@@ -51,7 +52,10 @@ class App extends Component {
     new MDCRipple(this.cancelBtn);
   }
   handlePhone(e) {
-    this.setState({ phoneNumber: e.target.value })
+    mutate(draft => {
+      // Mutate state! You dont have to worry about it!
+      draft.phoneNumber = e.target.value;
+    })
   }
   onSignInSubmit() {
     var phoneNumber = this.state.phoneNumber;
@@ -116,49 +120,18 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <section className="header">
-          <h1><i className="material-icons">free_breakfast</i>&nbsp;BRUNCH CLUB</h1>
-          {/*<h1><i className="material-icons">local_cafe</i>&nbsp;BRUNCH CLUB</h1>
-          <h1><i className="material-icons">local_dining</i>&nbsp;BRUNCH CLUB</h1>
-          <h1><i className="material-icons">wb_sunny</i>&nbsp;BRUNCH CLUB</h1>*/}
-        </section>
-        <p className="instruct">Sign in with your phone number below.</p>
-        <form id="sign-in-form" action="#">
-          <div ref={(el) => this.phoneField = el} className="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon phone">
-            <i ref={(el) => this.phoneFieldIcon = el} className="material-icons mdc-text-field__icon" tabIndex="0" role="button">phone</i>
-            <input type="text" className="mdc-text-field__input" id="phone-input" name="phone" value={this.state.phoneNumber} onChange={this.handlePhone}/>
-            <label className="mdc-floating-label" htmlFor="phone-input">Phone Number</label>
-            <div className="mdc-line-ripple"></div>
+      <Consumer select={[
+        state => state.phoneNumber,
+        state => state.view,
+      ]}>
+        {(phoneNumber, view) => (
+          <div>
+            <p>{phoneNumber}</p>
+            <p>{view}</p>
           </div>
-          <div className="button-container">
-            <button ref={(el) => this.signInBtn = el} className="mdc-button mdc-button--raised next" id="sign-in-button">
-              Next
-            </button>
-          </div>
-        </form>
-        <form id="verification-code-form" action="#">
-          <div ref={(el) => this.verifyField = el} className="mdc-text-field mdc-text-field--box verification-code">
-            <input type="text" className="mdc-text-field__input" id="verification-code" name="verification-code"/>
-            <label className="mdc-floating-label" htmlFor="verification-code">Enter the verification code...</label>
-            <div className="mdc-line-ripple"></div>
-          </div>
-          <div className="button-container">
-            <button ref={(el) => this.cancelBtn = el} className="mdc-button cancel">
-              Cancel
-            </button>
-            <button ref={(el) => this.verifyBtn = el} className="mdc-button mdc-button--raised next">
-              Verify Code
-            </button>
-          </div>
-        </form>
-        <div className="user-details-container">
-          Firebase sign-in status: <span id="sign-in-status">Unknown</span>
-          <div>Firebase auth <code>currentUser</code> object value:</div>
-          <pre><code id="account-details">null</code></pre>
-        </div>
-      </div>
-    );
+        )}
+      </Consumer>
+    )
   }
 }
 
