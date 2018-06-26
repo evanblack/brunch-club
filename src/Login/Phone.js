@@ -79,7 +79,7 @@ class Login extends Component {
         <p className="instruct">Sign in with your phone number below.</p>
         <div ref={(el) => this.phoneField = el} className="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon phone">
           <i ref={(el) => this.phoneFieldIcon = el} className="material-icons mdc-text-field__icon" tabIndex="0" role="button">phone</i>
-          <input type="text" className="mdc-text-field__input" id="phone-input" name="phone" value={phoneNumber} onChange={this.handlePhone}/>
+          <input type="tel" className="mdc-text-field__input" id="phone-input" name="phone" value={phoneNumber} onChange={this.handlePhone}/>
           <label className="mdc-floating-label" htmlFor="phone-input">Phone Number</label>
           <div className="mdc-line-ripple"></div>
         </div>
