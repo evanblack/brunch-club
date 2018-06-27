@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import Header from '../Header'
 import AnimatedPanel from './AnimatedPanel'
 import Phone from './Phone'
 import Verify from './Verify'
+import './Login.css'
 
 class Login extends Component {
   render() {
@@ -28,15 +30,8 @@ class Login extends Component {
     }
 
     return (
-      <div>
-        <section className="header">
-          <h1>
-            <i className="material-icons">free_breakfast</i>&nbsp;BRUNCH CLUB
-          </h1>
-          {/*<h1><i className="material-icons">local_cafe</i>&nbsp;BRUNCH CLUB</h1>
-          <h1><i className="material-icons">local_dining</i>&nbsp;BRUNCH CLUB</h1>
-          <h1><i className="material-icons">wb_sunny</i>&nbsp;BRUNCH CLUB</h1>*/}
-        </section>
+      <div className="Login">
+        <Header />
         <AnimatedPanel timeout={375} animation={`squish`} in={isPhone} render={screens.Phone} />
         <AnimatedPanel timeout={375} animation={`squish`} in={isVerify} render={screens.Verify} />
       </div>

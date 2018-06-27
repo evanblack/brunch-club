@@ -1,0 +1,32 @@
+.Login .phone,
+.Login .verification-code {
+  display: block;
+  width: 300px;
+  margin: 20px auto;
+}
+
+/* Page Transitions */
+.squish-exiting {
+  animation: squish-exit .25s ease-in 1;
+  opacity: 0;
+}
+.squish-entering {
+  /* hide it (offscreen or absolutely) while the exiting transition finishes */
+  animation: none; // Kills default _takeover animation
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+.squish-entered {
+  animation: squish-enter .25s ease-out 1;
+}
+
+@keyframes squish-enter {
+  0% { opacity: 0; transform: scale(0.975); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes squish-exit {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.975); }
+}
