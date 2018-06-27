@@ -13,7 +13,7 @@ function isPhoneNumberValid(phoneNumber) {
   return phoneNumber.search(pattern) !== -1
 }
 
-class Login extends Component {
+class Phone extends Component {
   constructor(props) {
     super(props)
     this.phoneField = null
@@ -33,8 +33,8 @@ class Login extends Component {
     loginStore.setPhoneNumber(e.target.value)
   }
   onSignInSubmit() {
-    const { loginStore, setView } = this.props
-    const { phoneNumber, setStatus, setConfirmationResult } = loginStore
+    const { loginStore } = this.props
+    const { phoneNumber, setStatus, setConfirmationResult, setView } = loginStore
     if (isPhoneNumberValid(phoneNumber)) {
       setStatus(true)
       var appVerifier = window.recaptchaVerifier
@@ -79,7 +79,7 @@ class Login extends Component {
     const { loginStore, animationClass } = this.props
     const { phoneNumber, signingIn } = loginStore
     return (
-      <form className={`Login-form ${animationClass}`} action="#" autoComplete="off">
+      <form className={`Phone-form ${animationClass}`} action="#" autoComplete="off">
         <p className="instruct">Sign in with your phone number below.</p>
         <div
           ref={(el) => (this.phoneField = el)}
@@ -118,4 +118,4 @@ class Login extends Component {
   }
 }
 
-export default observer(Login)
+export default observer(Phone)

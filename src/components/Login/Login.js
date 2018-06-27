@@ -33,7 +33,6 @@ class Login extends Component {
           animationClass={animationClass}
           loginStore={store.login}
           router={store.router}
-          setView={store.setView}
         />
       ),
       Verify: ({ animationClass }) => (
@@ -41,7 +40,6 @@ class Login extends Component {
           animationClass={animationClass}
           loginStore={store.login}
           router={store.router}
-          setView={store.setView}
         />
       )
     }

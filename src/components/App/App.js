@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Provider } from 'mobx-react'
 import { HistoryAdapter } from 'mobx-state-router'
-import { history } from './history'
-import appStore from './stores/app'
-import Shell from './Shell'
+import { history } from '../../history'
+import appStore from '../../stores/app'
+import Views from '../Views'
 import './App.css'
 
 window.appStore = appStore
@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <Provider store={appStore}>
-        <Shell />
+        <Views />
       </Provider>
     )
   }

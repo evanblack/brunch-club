@@ -1,9 +1,9 @@
 import React from 'react'
 import { inject } from 'mobx-react'
 import { RouterView } from 'mobx-state-router'
-import Login from './Login'
-import HomePage from './Home'
-import NotFoundPage from './NotFound'
+import Login from '../Login'
+import HomePage from '../Home'
+import NotFoundPage from '../NotFound'
 
 const viewMap = {
   home: <HomePage />,
@@ -11,7 +11,7 @@ const viewMap = {
   notFound: <NotFoundPage />
 }
 
-class ShellBase extends React.Component {
+class Views extends React.Component {
   render() {
     const { store } = this.props
     return (
@@ -22,4 +22,4 @@ class ShellBase extends React.Component {
   }
 }
 
-export default inject('store')(ShellBase)
+export default inject('store')(Views)

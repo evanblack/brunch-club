@@ -51,12 +51,12 @@ class Verify extends Component {
     }
   }
   handleCancel(e) {
-    const { loginStore, setView } = this.props
+    const { loginStore } = this.props
     e.preventDefault()
     firebase.auth().signOut()
     loginStore.setConfirmationResult(null)
     loginStore.setPhoneNumber('')
-    setView('login')
+    loginStore.setView('login')
   }
   componentDidMount() {
     // Init MDC

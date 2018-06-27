@@ -1,6 +1,6 @@
 import { observable, extendObservable } from 'mobx'
 import { RouterState, RouterStore } from 'mobx-state-router'
-import { routes } from './routes'
+import { routes } from '../routes'
 import userStore from './user'
 import loginStore from './login'
 
