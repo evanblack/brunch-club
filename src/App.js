@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Provider } from 'mobx-react';
-import { HistoryAdapter } from 'mobx-state-router';
-import { history } from './history';
-import appStore from './stores/app';
-import Shell from './Shell';
-import './App.css';
+import React, { Component } from 'react'
+import { Provider } from 'mobx-react'
+import { HistoryAdapter } from 'mobx-state-router'
+import { history } from './history'
+import appStore from './stores/app'
+import Shell from './Shell'
+import './App.css'
 
-window.appStore = appStore;
+window.appStore = appStore
 
 // Observe history changes
-const historyAdapter = new HistoryAdapter(appStore.router, history);
-historyAdapter.observeRouterStateChanges();
+const historyAdapter = new HistoryAdapter(appStore.router, history)
+historyAdapter.observeRouterStateChanges()
 
 class App extends Component {
   render() {
@@ -18,8 +18,8 @@ class App extends Component {
       <Provider store={appStore}>
         <Shell />
       </Provider>
-    );
+    )
   }
 }
 
-export default App;
+export default App

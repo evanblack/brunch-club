@@ -1,16 +1,16 @@
-import { RouterState } from 'mobx-state-router';
+import { RouterState } from 'mobx-state-router'
 
-const loginState = new RouterState('login');
+const loginState = new RouterState('login')
 
 const checkForUserSignedIn = (fromState, toState, routerStore) => {
-  const { rootStore } = routerStore;
+  const { rootStore } = routerStore
   if (rootStore.user.auth) {
-    return Promise.resolve();
+    return Promise.resolve()
   } else {
-    rootStore.user.setSignInRedirect(toState);
-    return Promise.reject(loginState);
+    rootStore.user.setSignInRedirect(toState)
+    return Promise.reject(loginState)
   }
-};
+}
 
 // Routes are matched from top to bottom. Make sure they are sequenced
 // in the order of priority. It is generally best to sort them by pattern,
@@ -32,4 +32,4 @@ export const routes = [
     name: 'notFound',
     pattern: '/not-found'
   }
-];
+]
