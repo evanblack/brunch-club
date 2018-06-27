@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx'
 import { RouterState } from 'mobx-state-router'
 
+// Default sign-in redirect
 const defaultState = new RouterState('home')
-// const loginState = new RouterState('login');
 
 const userStore = observable(
   {

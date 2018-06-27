@@ -1,11 +1,13 @@
 import React from 'react'
 import { inject } from 'mobx-react'
 import { RouterView } from 'mobx-state-router'
+import Loader from '../Loader'
 import Login from '../Login'
 import HomePage from '../Home'
 import NotFoundPage from '../NotFound'
 
 const viewMap = {
+  loader: <Loader />,
   home: <HomePage />,
   login: <Login />,
   notFound: <NotFoundPage />

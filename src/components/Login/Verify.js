@@ -26,7 +26,7 @@ class Verify extends Component {
   }
   handleVerify(e) {
     e.preventDefault()
-    const { loginStore, router } = this.props
+    const { loginStore } = this.props
     const { verificationCode, confirmationResult, setConfirmationResult, setStatus } = loginStore
     if (!!verificationCode) {
       setStatus(true)
@@ -34,11 +34,10 @@ class Verify extends Component {
         .confirm(verificationCode)
         .then(function(result) {
           // User signed in successfully.
-          var user = result.user
-          console.log(user)
+          // onAuthStateChanged will handle the redirect.
           setStatus(false)
           setConfirmationResult(null)
-          router.goTo('home')
+          // router.goTo('home')
         })
         .catch(function(error) {
           // User couldn't sign in (bad verification code?)
@@ -63,9 +62,8 @@ class Verify extends Component {
     this.bindMDC()
   }
   render() {
-    const { loginStore, router, animationClass } = this.props
+    const { loginStore, animationClass } = this.props
     const { verificationCode, signingIn } = loginStore
-    console.log(router)
     return (
       <form className={`Verify-form ${animationClass}`} action="#" autoComplete="off">
         <div

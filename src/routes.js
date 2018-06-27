@@ -1,6 +1,6 @@
 import { RouterState } from 'mobx-state-router'
 
-const loginState = new RouterState('login')
+const loadingState = new RouterState('loader')
 
 const checkForUserSignedIn = (fromState, toState, routerStore) => {
   const { rootStore } = routerStore
@@ -8,7 +8,7 @@ const checkForUserSignedIn = (fromState, toState, routerStore) => {
     return Promise.resolve()
   } else {
     rootStore.user.setSignInRedirect(toState)
-    return Promise.reject(loginState)
+    return Promise.reject(loadingState)
   }
 }
 
@@ -20,8 +20,12 @@ const checkForUserSignedIn = (fromState, toState, routerStore) => {
 //     /items/:id
 export const routes = [
   {
+    name: 'loader',
+    pattern: '/'
+  },
+  {
     name: 'home',
-    pattern: '/',
+    pattern: '/home',
     beforeEnter: checkForUserSignedIn
   },
   {
