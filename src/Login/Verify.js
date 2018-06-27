@@ -59,11 +59,11 @@ class Verify extends Component {
     this.bindMDC();
   }
   render() {
-    const { loginStore, router } = this.props
+    const { loginStore, router, animationClass } = this.props
     const { verificationCode, signingIn } = loginStore
     console.log(router)
     return (
-      <form id="verification-code-form" action="#" autoComplete="off">
+      <form className={`Verify-form ${animationClass}`} action="#" autoComplete="off">
         <div ref={(el) => this.verifyField = el} className="mdc-text-field mdc-text-field--box verification-code">
           <input type="number" className="mdc-text-field__input" id="verification-code" name="verification-code" value={verificationCode} onChange={this.setVerificationCode}/>
           <label className="mdc-floating-label" htmlFor="verification-code">Enter the verification code...</label>

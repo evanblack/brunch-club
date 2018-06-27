@@ -72,10 +72,10 @@ class Login extends Component {
     });
   }
   render() {
-    const { loginStore } = this.props
+    const { loginStore, animationClass } = this.props
     const { phoneNumber, signingIn } = loginStore
     return (
-      <form id="sign-in-form" action="#" autoComplete="off">
+      <form className={`Login-form ${animationClass}`} action="#" autoComplete="off">
         <p className="instruct">Sign in with your phone number below.</p>
         <div ref={(el) => this.phoneField = el} className="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon phone">
           <i ref={(el) => this.phoneFieldIcon = el} className="material-icons mdc-text-field__icon" tabIndex="0" role="button">phone</i>
