@@ -1,35 +1,71 @@
 import { observable, action } from 'mobx'
 import { RouterState } from 'mobx-state-router'
+import firebase from 'firebase'
 
 // Default sign-in redirect
 const defaultState = new RouterState('home')
 
 const userStore = observable(
   {
-    uid: '',
+    docId: '',
     name: '',
     email: '',
     phone: '',
+    authId: '',
     auth: null,
     signInRedirect: defaultState,
     setAuth(user) {
-      this.uid = user.uid
-      this.name = user.displayName
-      this.email = user.email
       this.phone = user.phoneNumber
+      this.authId = user.uid
       this.auth = user
+      // These will be empty for Phone Auth
+      // this.name = user.displayName
+      // this.email = user.email
+    },
+    setUserFromSnapshot(id, data) {
+      this.docId = id
+      this.name = data.name
+      this.email = data.email
     },
     setSignInRedirect(routerState) {
       this.signInRedirect = routerState
     },
     resetSignInRedirect() {
       this.setSignInRedirect(defaultState)
+    },
+    getMemberByPhone(phoneNumber) {
+      // return firebase.firestore().collection('members').doc(id).get();
+      return firebase
+        .firestore()
+        .collection('members')
+        .where('phone', '==', phoneNumber)
+        .get()
+      // .then((querySnapshot) => {
+      //   return Promise.resolve(querySnapshot)
+      // })
+    },
+    setMember(profileData) {
+      const { phone, authId } = this
+      return firebase
+        .firestore()
+        .collection('members')
+        .doc(this.docId)
+        .set({ ...profileData, ...{ phone, authId } }, { merge: true })
+    },
+    addMember(profileData) {
+      const { phone, authId } = this
+      return firebase
+        .firestore()
+        .collection('members')
+        .add({ ...profileData, ...{ phone, authId } })
     }
   },
   {
     auth: observable.ref,
     setAuth: action.bound,
-    setSignInRedirect: action.bound
+    setSignInRedirect: action.bound,
+    setMember: action.bound,
+    addMember: action.bound
   }
 )
 

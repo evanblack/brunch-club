@@ -5,6 +5,7 @@ const profileStore = observable(
     name: '',
     email: '',
     processing: false,
+    method: 'set',
     setName(val) {
       this.name = val
     },
@@ -13,6 +14,9 @@ const profileStore = observable(
     },
     setStatus(flag) {
       this.processing = flag
+    },
+    setAction(method) {
+      this.method = method
     }
   },
   {

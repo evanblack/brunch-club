@@ -31,7 +31,27 @@ class Profile extends Component {
   }
   handleSubmit(e) {
     const { store } = this.props
+    const { setMember, addMember } = store.user
+    const { name, email, method, setStatus } = store.profile
     e.preventDefault()
+    setStatus(true)
+    if (method === 'add') {
+      addMember({
+        name,
+        email
+      }).then(() => {
+        // Success!
+        store.router.goTo('home')
+      })
+    } else {
+      setMember({
+        name,
+        email
+      }).then(() => {
+        // Success!
+        store.router.goTo('home')
+      })
+    }
   }
   componentDidMount() {
     // Init MDC
@@ -39,7 +59,7 @@ class Profile extends Component {
   }
   render() {
     const { store } = this.props
-    const { name, email } = store.profile
+    const { name, email, processing } = store.profile
     return (
       <div className="Profile">
         <Header />
@@ -81,6 +101,7 @@ class Profile extends Component {
             <button
               onClick={this.handleSubmit}
               ref={(el) => (this.nextBtn = el)}
+              disabled={!!processing}
               className="mdc-button mdc-button--raised next">
               Next
             </button>
