@@ -16,18 +16,19 @@ class HomePage extends Component {
   }
   render() {
     const { store } = this.props
+    const eventListStore = store.eventList
     // const user = firebase.auth().currentUser;
     // const user = store.user.auth
-    // const eventData = {
-    //   when: '',
-    //   where: {
-    //     map: 'https://www.google.com/maps/d/embed?mid=1tALyDa-yK9dKaM9j1KqOr3I1nLHm8hDt'
-    //   }
-    // }
+
+    // const EventList = eventListStore.loading ? <Spinner /> :
+    const EventList = eventListStore.loading
+      ? null
+      : eventListStore.events.map((e) => <EventCard key={`event_${e.id}`} event={e} />)
+
     return (
       <div className="Home">
         <h1>Upcoming Events</h1>
-        <EventCard />
+        {EventList}
         {/*<div className="user-details-container">
           Firebase sign-in status:{' '}
           <span id="sign-in-status">{user ? 'Signed in' : 'Signed out'}</span>

@@ -5,6 +5,7 @@ import firebase from 'firebase'
 class EventListStore {
   loading = false
   events = []
+  eventsRef = null
   reset() {
     this.setLoading(false)
     this.clearEvents()
@@ -17,11 +18,7 @@ class EventListStore {
       .get()
       .then((querySnapshot) => {
         this.setLoading(false)
-        // this.setEvents(response.data)
-        querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, ' => ', doc.data())
-        })
+        this.setEvents(querySnapshot)
         return querySnapshot
       })
       .catch((err) => {
@@ -32,15 +29,15 @@ class EventListStore {
   setLoading(flag) {
     this.loading = flag
   }
-  setEvents(eventData) {
+  setEvents(querySnapshot) {
     let events = []
-    let len = eventData.length
-    for (let i = 0; i < len; i++) {
-      const e = eventData[i]
+    querySnapshot.forEach(function(doc) {
+      // console.log(doc.get().collection('rsvps'))
+      // console.log(doc.collection('rsvps'))
       let s = new EventStore()
-      s.init(e)
+      s.init(doc.id, doc.data())
       events.push(s)
-    }
+    })
     this.events.replace(events)
   }
   clearEvents() {
