@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.1.0",
+    "google-libphonenumber": "^3.1.8",
     "history": "^4.7.2",
     "material-components-web": "^0.36.1",
     "mobx": "^5.0.3",

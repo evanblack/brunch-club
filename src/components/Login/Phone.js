@@ -4,13 +4,29 @@ import { MDCTextField } from '@material/textfield'
 import { MDCTextFieldIcon } from '@material/textfield/icon'
 import { MDCRipple } from '@material/ripple'
 import firebase from 'firebase'
+import libphonenumber from 'google-libphonenumber'
+
+const phoneUtil = libphonenumber.PhoneNumberUtil.getInstance()
+const PNF = libphonenumber.PhoneNumberFormat
 
 /**
  * Returns true if the phone number is valid.
  */
 function isPhoneNumberValid(phoneNumber) {
-  var pattern = /^\+[0-9\s\-\\]+$/
-  return phoneNumber.search(pattern) !== -1
+  try {
+    phoneNumber = phoneUtil.parse(phoneNumber, 'US')
+    return phoneUtil.isValidNumber(phoneNumber)
+  } catch (error) {
+    return false
+  }
+}
+
+/**
+ * Parses and then formats the phone number to the necessary standard.
+ */
+function formatPhoneNumber(phoneNumber) {
+  phoneNumber = phoneUtil.parse(phoneNumber, 'US')
+  return phoneUtil.format(phoneNumber, PNF.E164)
 }
 
 class Phone extends Component {
@@ -36,11 +52,13 @@ class Phone extends Component {
     const { loginStore } = this.props
     const { phoneNumber, setStatus, setConfirmationResult, setView } = loginStore
     if (isPhoneNumberValid(phoneNumber)) {
+      // Add US country code automatically
+      const formattedPhoneNumber = formatPhoneNumber(phoneNumber)
       setStatus(true)
       var appVerifier = window.recaptchaVerifier
       firebase
         .auth()
-        .signInWithPhoneNumber(phoneNumber, appVerifier)
+        .signInWithPhoneNumber(formattedPhoneNumber, appVerifier)
         .then((confirmationResult) => {
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
