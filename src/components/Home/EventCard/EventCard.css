@@ -1,0 +1,45 @@
+.event-card {
+  margin: 0 0 1rem;
+}
+
+.event-card__media:before {
+  /* 2:1 ratio */
+  margin-top: 50%;
+}
+
+.event-card__when {
+  padding: 1rem;
+}
+
+.event-card__where {
+  padding: 0 1rem;
+}
+
+.event-card__title {
+  margin: 0;
+}
+
+.event-card__subcontent {
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  margin: 0;
+}
+
+.event-card__secondary {
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  padding: 0 1rem 8px 1rem;
+}
+
+.event-card__rsvp-number {
+  display: inline-block;
+  text-align: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 50%;
+  color: var(--mdc-theme-surface);
+  background-color: var(--mdc-theme-on-surface);
+}
