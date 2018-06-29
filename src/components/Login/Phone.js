@@ -82,7 +82,11 @@ class Phone extends Component {
     this.bindMDC()
     // [START appVerifier]
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+      badge: 'bottomright',
       size: 'invisible',
+      onload: () => {
+        console.log('reCAPTCHA loaded!')
+      },
       callback: (response) => {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
         this.onSignInSubmit()

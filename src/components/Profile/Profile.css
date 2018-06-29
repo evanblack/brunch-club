@@ -1,6 +1,5 @@
 .Profile .name,
 .Profile .email {
   display: block;
-  width: 300px;
   margin: 20px auto;
 }
