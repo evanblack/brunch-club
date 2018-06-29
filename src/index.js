@@ -4,15 +4,15 @@ import firebase from 'firebase'
 import config from './CONFIG'
 import { HistoryAdapter } from 'mobx-state-router'
 import { history } from './history'
-import appStore from './stores/app'
+import rootStore from './stores/root'
 import './index.css'
 import App from './components/App'
 import registerServiceWorker from './registerServiceWorker'
 
-window.appStore = appStore
+window.appStore = rootStore
 
 // Observe history changes
-const historyAdapter = new HistoryAdapter(appStore.router, history)
+const historyAdapter = new HistoryAdapter(rootStore.router, history)
 historyAdapter.observeRouterStateChanges()
 
 // Configure Firebase.
@@ -45,9 +45,9 @@ follow these steps, YOUR APP MAY BREAK.
 */
 firebase.firestore().settings({ timestampsInSnapshots: true })
 firebase.auth().onAuthStateChanged((user) => {
-  const router = appStore.router
-  const userStore = appStore.user
-  const profileStore = appStore.profile
+  const router = rootStore.router
+  const userStore = rootStore.user
+  const profileStore = rootStore.profile
   if (user) {
     // Set the user data that we may have stored in the AUTH table of Firebase
     userStore.setAuth(user)
@@ -76,9 +76,9 @@ firebase.auth().onAuthStateChanged((user) => {
     })
   } else {
     // Make sure user is signed in
-    appStore.router.goTo('login')
+    rootStore.router.goTo('login')
   }
 })
 
-ReactDOM.render(<App store={appStore} />, document.getElementById('root'))
+ReactDOM.render(<App store={rootStore} />, document.getElementById('root'))
 registerServiceWorker()
