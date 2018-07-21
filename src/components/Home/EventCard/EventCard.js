@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
+// import mapboxgl from 'mapbox-gl'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import './EventCard.css'
+import { mapboxConfig } from '../../../CONFIG'
+
+const mapboxTileUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${
+  mapboxConfig.accessToken
+}`
 
 // const ProgramCaptions = observer(({ text, on, ccMode, onClick, label }) => {
 //   const isDisabled = ccMode === CAPTION_MODES.FORCED_ON ? true : false
@@ -19,18 +27,49 @@ import './EventCard.css'
 // })
 
 class EventCard extends Component {
+  constructor(props) {
+    super(props)
+    this.mapEl = null
+    this.mapLeaflet = null
+    this.mapMapbox = null
+    this.setupMap = this.setupMap.bind(this)
+  }
+  setupMap(el) {
+    const { event: e } = this.props
+    this.mapEl = el
+    // Init Map
+    const { latitude, longitude } = e.where.location
+    this.mapLeaflet = L.map(`map_${e.id}`).setView([latitude, longitude], 13)
+    L.tileLayer(mapboxTileUrl, {
+      maxZoom: 18,
+      attribution: 'Imagery ©<a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(this.mapLeaflet)
+    // L.marker([latitude, longitude]).addTo(this.mapLeaflet)
+    L.circle([latitude, longitude], {
+      color: '#6200ee',
+      fillColor: '#6200ee',
+      fillOpacity: 0.25,
+      weight: 1,
+      radius: 250
+    }).addTo(this.mapLeaflet)
+    // mapboxgl.accessToken = mapboxConfig.accessToken
+    // this.mapMapbox = new mapboxgl.Map({
+    //   container: 'mapid',
+    //   style: 'mapbox://styles/mapbox/streets-v10'
+    // })
+  }
   render() {
     const { event: e } = this.props
     return (
       <div className="mdc-card event-card">
-        {/*<div className="mdc-card__media event-card__media">
-          <div className="mdc-card__media-content">
-            <iframe
-              frameBorder="0"
-              src="https://www.google.com/maps/d/embed?mid=1tALyDa-yK9dKaM9j1KqOr3I1nLHm8hDt"
-            />
+        {e.where && e.where.location ? (
+          <div className="mdc-card__media event-card__media">
+            <div className="mdc-card__media-content">
+              <div className="event-card__media__map" id={`map_${e.id}`} ref={this.setupMap} />
+            </div>
           </div>
-        </div>*/}
+        ) : null}
         <div className="event-card__when">
           <h2 className="event-card__title mdc-typography--headline6">When</h2>
           <p className="event-card__subcontent mdc-typography--body2">{e.formattedDate}</p>
@@ -39,7 +78,9 @@ class EventCard extends Component {
           <div className="event-card__where">
             <h2 className="event-card__title mdc-typography--headline6">Where</h2>
             <p className="event-card__subcontent mdc-typography--body2">
-              {e.where.name}
+              <a target="_blank" href={`https://maps.google.com/?q=${e.where.address}`}>
+                {e.where.name}
+              </a>
               <br />
               {e.where.address}
             </p>

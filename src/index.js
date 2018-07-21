@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import firebase from 'firebase'
-import config from './CONFIG'
+import { firebaseConfig } from './CONFIG'
 import { HistoryAdapter } from 'mobx-state-router'
 import { history } from './history'
 import rootStore from './stores/root'
@@ -16,7 +16,7 @@ const historyAdapter = new HistoryAdapter(rootStore.router, history)
 historyAdapter.observeRouterStateChanges()
 
 // Configure Firebase.
-firebase.initializeApp(config)
+firebase.initializeApp(firebaseConfig)
 /*
 From Firebase:
 [2018-06-27T18:02:32.446Z]  @firebase/firestore: Firestore (5.0.4):
