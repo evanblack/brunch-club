@@ -23,6 +23,9 @@ class EventStore {
   get formattedDate() {
     return format(this.when, 'dddd MMMM DD, YYYY @ ha')
   }
+  get calendarDate() {
+    return format(this.when, 'MM/DD/YYYY HH:mm A')
+  }
   get isRsvpd() {
     // const result = this.rsvpData.find((m) => m.authId === this.rootStore.user.authId)
     return this.rsvpId ? true : false

@@ -4,7 +4,15 @@ import { observer } from 'mobx-react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import './EventCard.css'
-import { mapboxConfig } from '../../../CONFIG'
+import { mapboxConfig, addeventConfig } from '../../../CONFIG'
+
+// Configure AddEvent
+window.addeventasync = () => {
+  window.addeventatc.settings({
+    license: addeventConfig.clientId,
+    css: false
+  })
+}
 
 const mapboxTileUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${
   mapboxConfig.accessToken
@@ -108,12 +116,22 @@ class EventCard extends Component {
               title="Favorite">
               favorite_border
             </button>*/}
-            <a
-              href="ics/BxaNePfLlz.ics"
-              className="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
-              title="Remind Me">
-              alarm
-            </a>
+            {e.where ? (
+              <button
+                className="addeventatc material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
+                title="Remind Me"
+                ref={() => {
+                  window.addeventatc.refresh()
+                }}>
+                alarm
+                <span className="start">{e.calendarDate}</span>
+                <span className="timezone">America/Indiana/Indianapolis</span>
+                <span className="title">Brunch Club ({e.where.name})</span>
+                <span className="location">{e.where.address}</span>
+                <span className="all_day_event">false</span>
+                <span className="date_format">MM/DD/YYYY</span>
+              </button>
+            ) : null}
           </div>
         </div>
         {e.whosIn && e.rsvpData.length ? (
