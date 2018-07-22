@@ -7,7 +7,7 @@ const defaultState = new RouterState('home')
 
 class UserStore {
   rootStore
-  docId = ''
+  docRef = null
   name = ''
   email = ''
   phone = ''
@@ -25,8 +25,8 @@ class UserStore {
     // this.name = user.displayName
     // this.email = user.email
   }
-  setUserFromSnapshot(id, data) {
-    this.docId = id
+  setUserFromSnapshot(ref, data) {
+    this.docRef = ref
     this.name = data.name
     this.email = data.email
   }
@@ -52,7 +52,7 @@ class UserStore {
     return firebase
       .firestore()
       .collection('members')
-      .doc(this.docId)
+      .doc(this.docRef.id)
       .set({ ...profileData, ...{ phone, authId } }, { merge: true })
   }
   addMember(profileData) {
@@ -65,7 +65,7 @@ class UserStore {
 }
 
 decorate(UserStore, {
-  docId: observable,
+  docRef: observable,
   name: observable,
   email: observable,
   phone: observable,

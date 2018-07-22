@@ -3,9 +3,13 @@ import EventStore from './event'
 import firebase from 'firebase'
 
 class EventListStore {
+  rootStore
   loading = false
   events = []
   eventsRef = null
+  constructor(rootStore) {
+    this.rootStore = rootStore
+  }
   reset() {
     this.setLoading(false)
     this.clearEvents()
@@ -31,10 +35,10 @@ class EventListStore {
   }
   setEvents(querySnapshot) {
     let events = []
-    querySnapshot.forEach(function(doc) {
+    querySnapshot.forEach((doc) => {
       // console.log(doc.get().collection('rsvps'))
       // console.log(doc.collection('rsvps'))
-      let s = new EventStore()
+      let s = new EventStore(this.rootStore)
       s.init(doc.id, doc.data())
       events.push(s)
     })

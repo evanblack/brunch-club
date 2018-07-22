@@ -91,22 +91,39 @@ class EventCard extends Component {
         </div>*/}
         <div className="mdc-card__actions">
           <div className="mdc-card__action-buttons">
-            <button className="mdc-button mdc-card__action mdc-card__action--button">RSVP</button>
-            <span className="event-card__rsvp-number mdc-typography--caption">{e.rsvps}</span>
+            <button
+              className="mdc-button mdc-card__action mdc-card__action--button"
+              onClick={e.rsvp}>
+              {e.isRsvpd ? `Cancel` : `RSVP`}
+            </button>
+            <button className="event-card__rsvp-number-button" onClick={e.toggleWhosIn}>
+              <span className="event-card__rsvp-number mdc-typography--caption">
+                {e.rsvps.size}
+              </span>
+            </button>
           </div>
           <div className="mdc-card__action-icons">
-            <button
+            {/*<button
               className="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
               title="Favorite">
               favorite_border
-            </button>
-            <button
+            </button>*/}
+            <a
+              href="ics/BxaNePfLlz.ics"
               className="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
               title="Remind Me">
               alarm
-            </button>
+            </a>
           </div>
         </div>
+        {e.whosIn && e.rsvpData.length ? (
+          <div className="event-card__rsvps">
+            <p className="mdc-typography--body2">
+              <span className="mdc-typography--subtitle2">Who's Going?&nbsp;</span>
+              {e.rsvpData.map((m) => m.name).join(', ')}
+            </p>
+          </div>
+        ) : null}
       </div>
     )
   }

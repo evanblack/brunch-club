@@ -12,7 +12,7 @@ class RootStore {
   user = new UserStore(this)
   login = new LoginStore(this)
   profile = new ProfileStore(this)
-  eventList = new EventListStore()
+  eventList = new EventListStore(this)
 }
 
 // Create the rootStore

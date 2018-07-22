@@ -63,9 +63,9 @@ firebase.auth().onAuthStateChanged((user) => {
         // Otherwise, grab the member data and prefill the fields with it
         if (querySnapshot.size !== 1)
           console.error(`Multiple members returned for this phone number!`)
-        const memberId = querySnapshot.docs[0].id
+        const memberRef = querySnapshot.docs[0].ref
         const memberData = querySnapshot.docs[0].data()
-        userStore.setUserFromSnapshot(memberId, memberData)
+        userStore.setUserFromSnapshot(memberRef, memberData)
         profileStore.setAction('set')
         profileStore.setName(memberData.name)
         profileStore.setEmail(memberData.email)

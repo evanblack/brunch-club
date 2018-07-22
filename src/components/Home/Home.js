@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import firebase from 'firebase'
 import './Home.css'
+import Header from '../Header'
 import EventCard from './EventCard'
 
 class HomePage extends Component {
@@ -27,7 +28,8 @@ class HomePage extends Component {
 
     return (
       <div className="Home">
-        <h1>Upcoming Events</h1>
+        <Header />
+        <h1 className="Home-heading mdc-typography--headline6">Upcoming Events</h1>
         {EventList}
         {/*<div className="user-details-container">
           Firebase sign-in status:{' '}

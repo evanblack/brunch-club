@@ -45,6 +45,12 @@
   padding: 0 1rem 8px 1rem;
 }
 
+.event-card__rsvp-number-button {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+}
+
 .event-card__rsvp-number {
   display: inline-block;
   text-align: center;
@@ -54,4 +60,12 @@
   border-radius: 50%;
   color: var(--mdc-theme-surface);
   background-color: var(--mdc-theme-on-surface);
+}
+
+.event-card__rsvps {
+  padding: 0 1rem 1rem;
+}
+
+.event-card__rsvps p {
+  margin: 0;
 }
