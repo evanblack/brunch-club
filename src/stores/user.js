@@ -37,7 +37,6 @@ class UserStore {
     this.setSignInRedirect(defaultState)
   }
   getMemberByPhone(phoneNumber) {
-    // return firebase.firestore().collection('members').doc(id).get();
     return firebase
       .firestore()
       .collection('members')
@@ -49,18 +48,28 @@ class UserStore {
   }
   setMember(profileData) {
     const { phone, authId } = this
+    this.name = profileData.name
+    this.email = profileData.email
     return firebase
       .firestore()
       .collection('members')
       .doc(this.docRef.id)
       .set({ ...profileData, ...{ phone, authId } }, { merge: true })
+      .then((ref) => {
+        this.docRef = ref
+      })
   }
   addMember(profileData) {
     const { phone, authId } = this
+    this.name = profileData.name
+    this.email = profileData.email
     return firebase
       .firestore()
       .collection('members')
       .add({ ...profileData, ...{ phone, authId } })
+      .then((ref) => {
+        this.docRef = ref
+      })
   }
 }
 
