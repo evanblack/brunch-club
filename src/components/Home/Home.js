@@ -18,7 +18,7 @@ class HomePage extends Component {
   render() {
     const { store } = this.props
     const eventListStore = store.eventList
-    const user = store.user.auth
+    // const user = store.user.auth
 
     // const EventList = eventListStore.loading ? <Spinner /> :
     let EventList = null
