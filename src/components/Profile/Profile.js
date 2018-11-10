@@ -23,11 +23,11 @@ class Profile extends Component {
   }
   setName(e) {
     const { store } = this.props
-    store.profile.setName(e.target.value)
+    store.profile.setName(e.target.value.trim())
   }
   setEmail(e) {
     const { store } = this.props
-    store.profile.setEmail(e.target.value)
+    store.profile.setEmail(e.target.value.trim())
   }
   handleSubmit(e) {
     const { store } = this.props
