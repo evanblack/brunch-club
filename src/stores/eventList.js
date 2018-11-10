@@ -1,4 +1,4 @@
-import { observable, computed, action, decorate } from 'mobx'
+import { observable, action, decorate } from 'mobx'
 import EventStore from './event'
 import firebase from 'firebase'
 
@@ -15,10 +15,12 @@ class EventListStore {
     this.clearEvents()
   }
   fetchEvents() {
+		const today = new Date()
     this.setLoading(true)
     return firebase
       .firestore()
       .collection('events')
+      .where('when', '>=', today)
       .get()
       .then((querySnapshot) => {
         this.setLoading(false)

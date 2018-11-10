@@ -18,13 +18,15 @@ class HomePage extends Component {
   render() {
     const { store } = this.props
     const eventListStore = store.eventList
-    // const user = firebase.auth().currentUser;
-    // const user = store.user.auth
+    const user = store.user.auth
 
     // const EventList = eventListStore.loading ? <Spinner /> :
-    const EventList = eventListStore.loading
-      ? null
-      : eventListStore.events.map((e) => <EventCard key={`event_${e.id}`} event={e} />)
+    let EventList = null
+		if(!eventListStore.loading) {
+			EventList = eventListStore.events.length
+				? eventListStore.events.map((e) => <EventCard key={`event_${e.id}`} event={e} />)
+				: (<p>Sorry, there aren't any upcoming events.</p>)
+		}
 
     return (
       <div className="Home">
