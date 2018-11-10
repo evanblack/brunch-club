@@ -119,6 +119,7 @@ class EventCard extends Component {
             {e.where ? (
               <button
                 className="addeventatc material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
+								data-dropdown-x="right"
                 title="Remind Me"
                 ref={() => {
                   window.addeventatc.refresh()
